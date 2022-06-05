@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button, Pressable } from 'react-native'
 const styles = StyleSheet.create({
   headingView: {
     margin: 'auto',
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 15,
-    marginBottom:5,
+    marginBottom: 5,
   },
   textInput: {
     borderWidth: 1,
@@ -34,6 +34,34 @@ const styles = StyleSheet.create({
   },
   button: {
 
+  },
+  calculatedView: {
+    borderWidth: 2,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 25,
+    borderRadius: 10,
+    borderColor: 'green'
+  },
+  timeResult: {
+    borderWidth: 1,
+    borderRadius: 10,
+    overflow: 'hidden',
+    flexDirection: 'row',
+    width: '30%',
+    justifyContent: 'space-between'
+  },
+  timeText1: {
+    fontSize: 25,
+    padding: 10,
+    paddingLeft: 20,
+  },
+  timeText2: {
+    fontSize: 25,
+    backgroundColor: 'gray',
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
   }
 
 })
@@ -92,26 +120,38 @@ function App() {
             />
           </View>
         </View>
-        <Button title='Calculate' />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <View style={{ width: '55%' }}>
-            <Text style={styles.inputLabel}>जम्मा धनराशी:</Text>
-            <TextInput style={styles.textInput} keyboardType='numeric' />
+        <Pressable style={{ backgroundColor: 'blue', padding: 10, borderRadius: 10, marginTop: 15, marginBottom: 15 }}>
+          <Text style={{ fontSize: 30, textAlign: 'center', color: '#fff', letterSpacing: 5 }}>CALCULATE</Text>
+        </Pressable>
+        <View style={{ ...styles.calculatedView, }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
+            <View style={{ width: '55%' }}>
+              <Text style={styles.inputLabel}>जम्मा धनराशी:</Text>
+              <Text style={{ fontSize: 25, borderWidth: 1, padding: 10, borderRadius: 10 }}>56766</Text>
+            </View>
+            <View style={{ width: '40%' }}>
+              <Text style={styles.inputLabel}>ब्याज मात्र:</Text>
+              <Text style={{ fontSize: 25, borderWidth: 1, padding: 10, borderRadius: 10 }}>788383</Text>
+            </View>
           </View>
-          <View style={{ width: '40%' }}>
-            <Text style={styles.inputLabel}>ब्याज मात्र:</Text>
-            <TextInput style={styles.textInput} keyboardType='numeric' />
+          <Text style={styles.inputLabel}>समय:</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={styles.timeResult} >
+              <Text style={styles.timeText1}>5</Text>
+              <Text style={styles.timeText2}>बर्ष</Text>
+            </View>
+            <View style={styles.timeResult}>
+              <Text style={styles.timeText1}>5</Text>
+              <Text style={styles.timeText2}>महिना</Text>
+            </View>
+            <View style={styles.timeResult}>
+              <Text style={styles.timeText1}>23</Text>
+              <Text style={styles.timeText2}>दिन</Text>
+            </View>
           </View>
-        </View>
-        <View>
-        <Text style={styles.inputLabel}>समय:</Text>
-          <View><Text>बर्ष</Text></View>
-          <View><Text>महिना</Text></View>
-          <View><Text>दिन</Text></View>
         </View>
       </View>
     </View>
-
   )
 }
 
