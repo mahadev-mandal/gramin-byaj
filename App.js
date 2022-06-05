@@ -1,36 +1,42 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, Button, Pressable } from 'react-native'
+import { View, ScrollView, Text, StyleSheet, TextInput, Button, Pressable } from 'react-native'
 const styles = StyleSheet.create({
   headingView: {
     margin: 'auto',
-    padding: 20,
+    padding: 10,
     backgroundColor: 'green',
 
   },
   headingText: {
-    fontSize: 50,
+    fontSize: 30,
     fontWeight: 'bold',
     color: 'white',
     textAlign: 'center'
   },
   inputLabel: {
-    fontSize: 30,
+    fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 15,
+    marginTop: 10,
     marginBottom: 5,
   },
   textInput: {
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 5,
+    padding:5,
     paddingLeft: 15,
-    fontSize: 25,
+    fontSize: 15,
+    letterSpacing:2,
+    fontWeight: 'bold',
   },
   timeInput: {
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 5,
+    padding:5,
     paddingLeft: 15,
-    fontSize: 25,
-    width: '30%'
+    fontSize: 15,
+    width: '30%',
+    letterSpacing: 1,
+    fontWeight: 'bold',
   },
   button: {
 
@@ -45,30 +51,30 @@ const styles = StyleSheet.create({
   },
   timeResult: {
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 5,
     overflow: 'hidden',
     flexDirection: 'row',
     width: '30%',
     justifyContent: 'space-between'
   },
   timeText1: {
-    fontSize: 25,
-    padding: 10,
-    paddingLeft: 20,
+    fontSize: 15,
+    padding: 8,
+    paddingLeft: 10,
   },
   timeText2: {
-    fontSize: 25,
+    fontSize: 15,
     backgroundColor: 'gray',
-    padding: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
+    padding: 8,
+    paddingLeft: 10,
+    paddingRight: 10,
   }
 
 })
 
 function App() {
   return (
-    <View style={{}} >
+    <ScrollView style={{}} >
       <View style={styles.headingView}>
         <Text
           style={styles.headingText}>ग्रामीण ब्याज कैलकुलेटर ( मासिक )</Text>
@@ -121,17 +127,17 @@ function App() {
           </View>
         </View>
         <Pressable style={{ backgroundColor: 'blue', padding: 10, borderRadius: 10, marginTop: 15, marginBottom: 15 }}>
-          <Text style={{ fontSize: 30, textAlign: 'center', color: '#fff', letterSpacing: 5 }}>CALCULATE</Text>
+          <Text style={{ fontSize: 18, textAlign: 'center', color: '#fff', letterSpacing: 3 }}>CALCULATE</Text>
         </Pressable>
         <View style={{ ...styles.calculatedView, }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
             <View style={{ width: '55%' }}>
               <Text style={styles.inputLabel}>जम्मा धनराशी:</Text>
-              <Text style={{ fontSize: 25, borderWidth: 1, padding: 10, borderRadius: 10 }}>56766</Text>
+              <Text style={{ fontSize: 16, borderWidth: 1, padding: 8, borderRadius: 5, fontWeight:'bold' }}>56766</Text>
             </View>
             <View style={{ width: '40%' }}>
               <Text style={styles.inputLabel}>ब्याज मात्र:</Text>
-              <Text style={{ fontSize: 25, borderWidth: 1, padding: 10, borderRadius: 10 }}>788383</Text>
+              <Text style={{ fontSize: 16, borderWidth: 1, padding: 8, borderRadius: 5, fontWeight:'bold' }}>788383</Text>
             </View>
           </View>
           <Text style={styles.inputLabel}>समय:</Text>
@@ -151,7 +157,7 @@ function App() {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
