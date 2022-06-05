@@ -2,7 +2,6 @@ import React from 'react'
 import { View, ScrollView, Text, StyleSheet, TextInput, Button, Pressable } from 'react-native'
 const styles = StyleSheet.create({
   headingView: {
-    margin: 'auto',
     padding: 10,
     backgroundColor: 'green',
 
@@ -77,7 +76,7 @@ function App() {
     <ScrollView style={{}} >
       <View style={styles.headingView}>
         <Text
-          style={styles.headingText}>ग्रामीण ब्याज कैलकुलेटर ( मासिक )</Text>
+          style={styles.headingText}>ग्रामीण ब्याज कैलकुलेटर jdjfkdsj ( मासिक )</Text>
       </View>
       <View style={{ padding: 15 }}>
         <View style={{}}>
