@@ -76,7 +76,7 @@ function App() {
     <ScrollView style={{}} >
       <View style={styles.headingView}>
         <Text
-          style={styles.headingText}>ग्रामीण ब्याज कैलकुलेटर ( मासिक )fgdsg</Text>
+          style={styles.headingText}>ग्रामीण ब्याज कैलकुलेटर ( मासिक )</Text>
       </View>
       <View style={{ padding: 15 }}>
         <View style={{}}>
