@@ -36,12 +36,12 @@ const styles = StyleSheet.create({
 
   },
   calculatedView: {
-    borderWidth: 2,
+    borderWidth:2, 
     paddingLeft: 15,
     paddingRight: 15,
-    paddingBottom: 25,
-    borderRadius: 10,
-    borderColor: 'green'
+    paddingBottom:25, 
+    borderRadius:10, 
+    borderColor:'green'
   },
   timeResult: {
     borderWidth: 1,
@@ -120,18 +120,18 @@ function App() {
             />
           </View>
         </View>
-        <Pressable style={{ backgroundColor: 'blue', padding: 10, borderRadius: 10, marginTop: 15, marginBottom: 15 }}>
-          <Text style={{ fontSize: 30, textAlign: 'center', color: '#fff', letterSpacing: 5 }}>CALCULATE</Text>
+        <Pressable style={{backgroundColor:'blue', padding:10, borderRadius:10, marginTop:15, marginBottom:15}}>
+          <Text style={{fontSize:30, textAlign:'center', color:'#fff',letterSpacing:5}}>CALCULATE</Text>
         </Pressable>
-        <View style={{ ...styles.calculatedView, }}>
+        <View style={{...styles.calculatedView, }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
             <View style={{ width: '55%' }}>
               <Text style={styles.inputLabel}>जम्मा धनराशी:</Text>
-              <Text style={{ fontSize: 25, borderWidth: 1, padding: 10, borderRadius: 10 }}>56766</Text>
+              <Text style={{fontSize:25, borderWidth:1, padding:10, borderRadius:10}}>56766</Text>
             </View>
             <View style={{ width: '40%' }}>
               <Text style={styles.inputLabel}>ब्याज मात्र:</Text>
-              <Text style={{ fontSize: 25, borderWidth: 1, padding: 10, borderRadius: 10 }}>788383</Text>
+              <Text style={{fontSize:25, borderWidth:1, padding:10, borderRadius:10}}>788383</Text>
             </View>
           </View>
           <Text style={styles.inputLabel}>समय:</Text>
