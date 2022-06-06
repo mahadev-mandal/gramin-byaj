@@ -98,7 +98,7 @@ function App() {
     const d = (m - Math.floor(m)) * 30;
     setCalDay(Math.floor(d));
     const t = y - Math.floor(y);
-    const A = Math.pow((1 + rate * n / 100), Math.floor(y) ) * principal * (1 + t * n * rate / 100);
+    const A = Math.pow((1 + rate * n / 100), Math.floor(y)) * principal * (1 + t * n * rate / 100);
     setCalAmount(A.toFixed(2));
     setInterest((A - principal).toFixed(2));
   }
@@ -156,7 +156,7 @@ function App() {
             />
           </View>
         </View>
-        <View>
+        <View style={{ marginBottom: 15 }}>
           <Text style={styles.inputLabel}>ऋण बुझाउने मिती:</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <TextInput
@@ -182,13 +182,8 @@ function App() {
             />
           </View>
         </View>
-        <Pressable
-          style={{ backgroundColor: 'blue', padding: 10, borderRadius: 10, marginTop: 15, marginBottom: 15 }}
-          onPress={handleBtnClick}
-        >
-          <Text style={{ fontSize: 18, textAlign: 'center', color: '#fff', letterSpacing: 3 }}>CALCULATE</Text>
-        </Pressable>
-        <View style={{ ...styles.calculatedView, }}>
+        <Button title='calculate' color='pink' onPress={handleBtnClick} />
+        <View style={{ ...styles.calculatedView, marginTop: 15 }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
             <View style={{ width: '55%' }}>
               <Text style={styles.inputLabel}>जम्मा धनराशी:</Text>
