@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, ScrollView, Text, StyleSheet, TextInput, Button, Pressable } from 'react-native'
-import Abc from './components/Abc';
+import Dropdown from './components/Dropdown';
 const styles = StyleSheet.create({
   headingView: {
     margin: 'auto',
@@ -105,7 +105,6 @@ function App() {
 
   return (
     <ScrollView>
-      <Abc />
       <View style={styles.headingView}>
         <Text
           style={styles.headingText}>ग्रामीण ब्याज कैलकुलेटर ( मासिक )</Text>
