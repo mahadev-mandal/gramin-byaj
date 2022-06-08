@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Pressable, View, FlatList, SafeAreaView, StatusBar, Text, TouchableOpacity } from "react-native";
+import { Alert, Modal,Button, TextInput, StyleSheet, Pressable, View, FlatList, SafeAreaView, StatusBar, Text, TouchableOpacity } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
     flex: 0,
     borderRadius: 5,
-    marginTop: StatusBar.currentHeight || 0,
     height: 300,
-    width: 150,
-    padding: 0,
+    width: 200,
     backgroundColor: '#fff',
     shadowColor: "#000",
     shadowOffset: {
@@ -29,16 +27,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center'
   },
+
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
+  textInput: {
+    fontSize: 15,
+    letterSpacing: 1,
+    fontWeight: 'bold',
+    color: 'black'
+
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
@@ -47,27 +47,34 @@ const styles = StyleSheet.create({
     backgroundColor: "#2196F3",
   },
   textStyle: {
-    color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
+    color: 'black'
   },
   modalText: {
     marginBottom: 0,
     textAlign: "center"
+  },
+  pressable: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 5,
+    borderRadius: 5,
+    height: 40,
+    
   }
 });
 
 
-const DATA = [];
-for (var year = 2050; year <= 2100; year++) {
-  DATA.push({ id: year, title: year })
-}
+
 const Item = ({ item, onPress, backgroundColor, textColor }) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
     <Text style={[styles.title, textColor]}>{item.title}</Text>
   </TouchableOpacity>
 );
-export const DateList = ({ hideModal }) => {
+export const DateList = ({ hideModal, data }) => {
   const [selectedId, setSelectedId] = useState(null);
   const renderItem = ({ item }) => {
     const backgroundColor = "#f9c2ff";
@@ -87,32 +94,33 @@ export const DateList = ({ hideModal }) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 34, marginBottom: -15, marginTop: -10 }} >&uarr;</Text>
+      <Text style={{ textAlign: 'center', fontWeight: 'bold', }} >&Delta;</Text>
       <FlatList
-        data={DATA}
+        data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         extraData={selectedId}
-        initialScrollIndex={25}
       />
-      <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 34, marginBottom: 0, marginTop: -20, zIndex: -1 }} >&darr;</Text>
+      <Text style={{ textAlign: 'center', fontWeight: 'bold', }} >&nabla;</Text>
     </SafeAreaView>
   );
 };
 
 
 
-const Dropdown = ({ data }) => {
+const Select = ({ data, width, placeholder, onChange, borderColor }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [inputFill, setInputFill] = useState('Modal')
+  const [inputFill, setInputFill] = useState('')
   function hideModal(itemId) {
     setModalVisible(false);
     setInputFill(itemId)
+    onChange(itemId.toString())
+
   }
   return (
-    <View style={styles.centeredView}>
+    <View style={{ width: width }} >
       <Modal
-        animationType="slide"
+        animationType="none"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -121,18 +129,27 @@ const Dropdown = ({ data }) => {
         }}
       >
         <View style={styles.centeredView}>
-          <DateList hideModal={hideModal} />
+          <View style={{backgroundColor:'white',}}>
+            <Button title="close" onPress={()=>setModalVisible(false)} />
+            <DateList hideModal={hideModal} data={data} />
+          </View>
         </View>
       </Modal>
       <Pressable
-        style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
+        style={{ ...styles.pressable, borderColor: borderColor }}
       >
-        <Text style={styles.textStyle}>{inputFill}</Text>
+        <TextInput
+          placeholder={placeholder}
+          editable={false}
+          value={inputFill.toString()}
+          style={styles.textInput}
+        />
+        <Text style={{ fontSize: 15 }}>&nabla;</Text>
       </Pressable>
     </View>
   );
 };
 
 
-export default Dropdown;
+export default Select;

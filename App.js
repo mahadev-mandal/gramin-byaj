@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { View, ScrollView, Text, StyleSheet, TextInput, Button, Pressable } from 'react-native'
-import Dropdown from './components/Dropdown';
+import { useFormik } from 'formik';
+import { validationSchema } from './utils/validationSchema';
+import Select from './components/Select';
 const styles = StyleSheet.create({
   headingView: {
     margin: 'auto',
@@ -38,9 +40,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     fontWeight: 'bold',
   },
-  button: {
-
-  },
   calculatedView: {
     borderWidth: 2,
     paddingLeft: 15,
@@ -72,36 +71,54 @@ const styles = StyleSheet.create({
 
 })
 
+const yearData = [];
+for (var year = 2050; year <= 2100; year++) {
+  yearData.push({ id: year, title: year })
+}
+const monthData = [];
+for (var year = 1; year <= 12; year++) {
+  monthData.push({ id: year, title: year })
+}
+const dayData = [];
+for (var year = 1; year <= 32; year++) {
+  dayData.push({ id: year, title: year })
+}
+
 function App() {
   const n = 12;
-  const [principal, setPrincipal] = useState(null);
-  const [rate, setRate] = useState(null);
-  const [startYear, setStartYear] = useState(null);
-  const [startMonth, setStartMonth] = useState(null);
-  const [startDay, setStartDay] = useState(null);
-  const [endYear, setendYear] = useState(null);
-  const [endMonth, setendMonth] = useState(null);
-  const [endDay, setendDay] = useState(null);
   const [calAmount, setCalAmount] = useState(null);
   const [interest, setInterest] = useState(null);
   const [calYear, setCalYear] = useState(null);
   const [calMonth, setCalMonth] = useState(null);
   const [calDay, setCalDay] = useState(null);
 
-  const handleBtnClick = () => {
-    const t1 = endYear * 360 + endMonth * 30 + endDay;
-    const t2 = startYear * 360 + startMonth * 30 + startDay;
-    const y = (t1 - t2) / 360;
-    setCalYear(Math.floor(y));
-    const m = (y - Math.floor(y)) * 12;
-    setCalMonth(Math.floor(m))
-    const d = (m - Math.floor(m)) * 30;
-    setCalDay(Math.floor(d));
-    const t = y - Math.floor(y);
-    const A = Math.pow((1 + rate * n / 100), Math.floor(y)) * principal * (1 + t * n * rate / 100);
-    setCalAmount(A.toFixed(2));
-    setInterest((A - principal).toFixed(2));
-  }
+  const { handleChange, handleBlur, handleSubmit, values, errors, touched } = useFormik({
+    initialValues: {
+      principle: '',
+      rate: '',
+      startYear: '',
+      startMonth: '',
+      startDay: '',
+      endYear: '',
+      endMonth: '',
+      endDay: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit(values) {
+      const t1 = Number(values.endYear) * 360 + Number(values.endMonth) * 30 + Number(values.endDay);
+      const t2 = Number(values.startYear) * 360 + Number(values.startMonth) * 30 + Number(values.startDay);
+      const y = (t1 - t2) / 360;
+      setCalYear(Math.floor(y));
+      const m = (y - Math.floor(y)) * 12;
+      setCalMonth(Math.floor(m))
+      const d = (m - Math.floor(m)) * 30;
+      setCalDay(Math.floor(d));
+      const t = y - Math.floor(y);
+      const A = Math.pow((1 + Number(values.rate) * n / 100), Math.floor(y)) * Number(values.principle) * (1 + t * n * Number(values.rate) / 100);
+      setCalAmount(A.toFixed(2));
+      setInterest((A - Number(values.principle)).toFixed(2));
+    }
+  })
 
   return (
     <ScrollView>
@@ -114,75 +131,77 @@ function App() {
           <View style={{ width: '65%', }}>
             <Text style={styles.inputLabel}>धनराशी:</Text>
             <TextInput
-              style={styles.textInput}
+              style={{ ...styles.textInput, borderColor: errors.principle && touched.principle ? 'red' : 'black' }}
               keyboardType='numeric'
-              defaultValue={null}
-              onChangeText={(newText) => { setPrincipal(Number(newText)) }}
+              onBlur={handleBlur('principle')}
+              value={values.principle}
+              onChangeText={handleChange('principle')}
             />
           </View>
           <View style={{ width: '30%' }}>
             <Text style={styles.inputLabel}>ब्याज दर:</Text>
             <TextInput
-              style={styles.textInput}
+              style={{ ...styles.textInput, borderColor: errors.rate && touched.rate ? 'red' : 'black' }}
               keyboardType='numeric'
-              defaultValue={null}
-              onChangeText={(newText) => { setRate(Number(newText)) }}
+              onBlur={handleBlur('rate')}
+              value={values.rate}
+              onChangeText={handleChange('rate')}
             />
           </View>
         </View>
         <View>
           <Text style={styles.inputLabel}>ऋण लिएको मिती:</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TextInput
-              style={styles.timeInput}
-              keyboardType='numeric'
-              placeholder='बर्ष'
-              defaultValue={null}
-              onChangeText={(newText) => { setStartYear(Number(newText)) }}
+            <Select
+              width="30%"
+              placeholder="बर्ष"
+              data={yearData}
+              onChange={handleChange('startYear')}
+              borderColor={errors.startYear && touched.startYear ? 'red' : 'black'}
             />
-            <TextInput
-              style={styles.timeInput}
-              keyboardType='numeric'
-              placeholder='महिना'
-              defaultValue={null}
-              onChangeText={(newText) => { setStartMonth(Number(newText)) }}
+            <Select
+              width="30%"
+              placeholder="महिना"
+              data={monthData}
+              onChange={handleChange('startMonth')}
+              borderColor={errors.startMonth && touched.startMonth ? 'red' : 'black'}
             />
-            <TextInput
-              style={styles.timeInput}
-              keyboardType='numeric'
-              placeholder='दिन'
-              defaultValue={null}
-              onChangeText={(newText) => { setStartDay(Number(newText)) }}
+            <Select
+              width="30%"
+              placeholder="दिन"
+              data={dayData}
+              onChange={handleChange('startDay')}
+              borderColor={errors.startDay && touched.startDay ? 'red' : 'black'}
             />
           </View>
         </View>
         <View style={{ marginBottom: 15 }}>
           <Text style={styles.inputLabel}>ऋण बुझाउने मिती:</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TextInput
-              style={styles.timeInput}
-              keyboardType='numeric'
-              placeholder='बर्ष'
-              defaultValue={null}
-              onChangeText={(newText) => { setendYear(Number(newText)) }}
+            <Select
+              width="30%"
+              placeholder="बर्ष"
+              data={yearData}
+              onChange={handleChange('endYear')}
+              borderColor={errors.endYear && touched.endYear ? 'red' : 'black'}
             />
-            <TextInput
-              style={styles.timeInput}
-              keyboardType='numeric'
-              placeholder='महिना'
-              defaultValue={null}
-              onChangeText={(newText) => { setendMonth(Number(newText)) }}
+            <Select
+              width="30%"
+              placeholder="महिना"
+              data={monthData}
+              onChange={handleChange('endMonth')}
+              borderColor={errors.endMonth && touched.endMonth ? 'red' : 'black'}
             />
-            <TextInput
-              style={styles.timeInput}
-              keyboardType='numeric'
-              placeholder='दिन'
-              defaultValue={null}
-              onChangeText={(newText) => { setendDay(Number(newText)) }}
+            <Select
+              width="30%"
+              placeholder="दिन"
+              data={dayData}
+              onChange={handleChange('endDay')}
+              borderColor={errors.endDay && touched.endDay ? 'red' : 'black'}
             />
           </View>
         </View>
-        <Button title='calculate' color='pink' onPress={handleBtnClick} />
+        <Button title='calculate' color='pink' onPress={handleSubmit} />
         <View style={{ ...styles.calculatedView, marginTop: 15 }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
             <View style={{ width: '55%' }}>
